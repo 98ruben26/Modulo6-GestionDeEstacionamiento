@@ -1,0 +1,14 @@
+{
+  "users": [
+    {
+      "name": "Ruben ",
+      "email": "rub3n9826@gmail.com",
+      "password": "1234567",
+      "role": "user",
+      "id": 1
+    }
+  ],
+  "login": {},
+  "empleados": [],
+  "registros": []
+}
