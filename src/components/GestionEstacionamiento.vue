@@ -102,18 +102,15 @@
                 </td>
                 <td>{{ item.color }}</td>
                 <td>{{ item.horaEntrada }} - {{ item.horaSalida }}</td>
-                <td>
-
-                    <button @click="prepararEdicion(item)" class="btn-edit" >
-                        <i class="fas fa-pen"></i>
-                    </button> 
-                </td>       
-                 <td>
-                    
-                  <button @click="eliminarRegistro(item.id)" class="btn-delete">
-                    <i class="fas fa-trash"></i>
-                  </button>
+                
+                <td class="actions-td">
+                    <button @click="cargarEdicion(item)" class="btn-edit" title="Editar registro">
+                        <i class="fas fa-edit"></i> </button>
+  
+                    <button @click="eliminarRegistro(item.id)" class="btn-delete" title="Eliminar registro">
+                        <i class="fas fa-trash-alt"></i> </button>
                 </td>
+                
               </tr>
               <tr v-if="registros.length === 0">
                 <td colspan="5" class="empty-msg">No hay vehículos registrados</td>
@@ -306,9 +303,8 @@ onMounted(obtenerRegistros);
   padding-bottom: 1rem;
 
 }
-
 .content-grid {
-  
+ 
   display: grid;
   /* Mantiene el formulario en un tamaño fijo y la tabla se expande */
   grid-template-columns: 350px 1fr; 
@@ -431,6 +427,48 @@ input, select {
   margin-right: 5px;
 }
 
+
+/* Añade o actualiza estos estilos en tu sección <style scoped> */
+
+.actions-td {
+  display: flex;
+  gap: 8px; /* Espacio entre botones */
+  justify-content: center;
+}
+
+.btn-edit, .btn-delete {
+  border: none;
+  border-radius: 6px; /* Bordes suaves */
+  padding: 8px 10px;
+  cursor: pointer;
+  transition: all 0.3s ease; /* Transición suave para el color */
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Estilo específico para Editar (Amarillo/Naranja) */
+.btn-edit {
+  background-color: #f1c40f;
+  color: #fff;
+}
+
+.btn-edit:hover {
+  background-color: #d4ac0d; /* Se oscurece al pasar el mouse */
+  transform: translateY(-2px); /* Pequeño salto visual */
+}
+
+/* Estilo específico para Eliminar (Rojo) */
+.btn-delete {
+  background-color: #e74c3c;
+  color: #fff;
+}
+
+.btn-delete:hover {
+  background-color: #c0392b;
+  transform: translateY(-2px);
+}
 
 
 </style>
