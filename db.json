@@ -10,5 +10,46 @@
   ],
   "login": {},
   "empleados": [],
-  "registros": []
+  "registros": [
+    {
+      "empleado": "juan perez",
+      "area": "contabilidad",
+      "placa": "RAAA-2026",
+      "tipo": "Auto",
+      "color": "plomo",
+      "horaEntrada": "08:00",
+      "horaSalida": "18:00",
+      "id": 1
+    },
+    {
+      "empleado": "rolando perez",
+      "area": "finanzas",
+      "placa": "HDD-1345",
+      "tipo": "Moto",
+      "horaEntrada": "09:23",
+      "horaSalida": "16:50",
+      "color": "azul",
+      "id": 2
+    },
+    {
+      "empleado": "raul chambi",
+      "area": "produccion",
+      "placa": "XOO-6067",
+      "tipo": "Auto",
+      "horaEntrada": "08:30",
+      "horaSalida": "18:00",
+      "color": "verde",
+      "id": 3
+    },
+    {
+      "empleado": "rene tapia",
+      "area": "produccion",
+      "placa": "AWS-4543",
+      "tipo": "Auto",
+      "horaEntrada": "09:23",
+      "horaSalida": "15:30",
+      "color": "negro",
+      "id": 4
+    }
+  ]
 }

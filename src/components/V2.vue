@@ -43,6 +43,8 @@
               <input v-model="nuevo.color" type="text" placeholder="Ej. Rojo" required />
             </div>
 
+
+
             <div class="form-row">
               <div class="form-group">
                 <label>Entrada</label>
@@ -61,23 +63,9 @@
         </div>
       </section>
 
-
-
       <section class="table-section">
         <div class="card">
           <h3><i class="fas fa-list"></i> Vehículos en Estancia</h3>
-        <div class="table-tools">
-          <div class="search-box">
-            <input v-model="filtroNombre" type="text" placeholder="🔍 Buscar por nombre de empleado..." />
-          </div>
-            <div class="filter-box">
-                <select v-model="filtroTipo">
-                    <option value="Todos">Todos los vehículos</option>
-                    <option value="Auto">🚗 Autos</option>
-                    <option value="Moto">🏍️ Motos</option>
-                </select>
-            </div>
-        </div>
           <table class="styled-table">
             <thead>
               <tr>
@@ -91,8 +79,8 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="item in registrosFiltrados" :key="item.id">
-                <td>{{ item.empleado }}</td>                   
+              <tr v-for="item in registros" :key="item.id">
+                <td>{{ item.empleado }}</td>
                 <td>{{ item.area }}</td>
                 <td><strong>{{ item.placa }}</strong></td>
                 <td>
@@ -103,13 +91,6 @@
                 <td>{{ item.color }}</td>
                 <td>{{ item.horaEntrada }} - {{ item.horaSalida }}</td>
                 <td>
-
-                    <button @click="prepararEdicion(item)" class="btn-edit" >
-                        <i class="fas fa-pen"></i>
-                    </button> 
-                </td>       
-                 <td>
-                    
                   <button @click="eliminarRegistro(item.id)" class="btn-delete">
                     <i class="fas fa-trash"></i>
                   </button>
@@ -126,26 +107,20 @@
   </div>
 </template>
 
-
 <script setup>
 //import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { ref, onMounted, computed } from 'vue';
-//import { t } from 'vue-router/dist/index-D_VEAp3P.js';
 
-
-
-// ESTADO PARA EDICIÓN
-const router = useRouter();
-const registros = ref([]);
-const enviando = ref(false);
-
-// 1. Añadir estados para filtros
+// ESTADO PARA FILTROS Y BÚSQUEDA
 const filtroNombre = ref('');
 const filtroTipo = ref('Todos');
 
-// 2. Añadir estado para saber si estamos editando
+// ESTADO PARA EDICIÓN
 const editandoId = ref(null);
+const router = useRouter();
+const registros = ref([]);
+const enviando = ref(false);
 
 const nuevo = ref({
   empleado: '',
@@ -157,8 +132,7 @@ const nuevo = ref({
   horaSalida: ''
 });
 
-
-// 3. Crear la propiedad computada para filtrar la tabla en tiempo real
+// LÓGICA DE FILTRADO DINÁMICO
 const registrosFiltrados = computed(() => {
   return registros.value.filter(item => {
     const coincideNombre = item.empleado.toLowerCase().includes(filtroNombre.value.toLowerCase());
@@ -167,24 +141,18 @@ const registrosFiltrados = computed(() => {
   });
 });
 
-// 4. Función para cargar datos en el formulario al editar
-const prepararEdicion = (item) => {
-  editandoId.value = item.id;
-  nuevo.value = { ...item }; // Copia los datos al formulario
-};
-
-// 5. Función para limpiar el modo edición
-const cancelarEdicion = () => {
-  editandoId.value = null;
-  nuevo.value = { empleado: '', area: 'produccion', placa: '', tipo: 'Auto', horaEntrada: '', horaSalida: '' };
-};
-
-
 // FUNCIONES DE EDICIÓN
 const cargarEdicion = (item) => {
   editandoId.value = item.id;
   nuevo.value = { ...item }; // Copiamos los datos al formulario
 };
+
+const cancelarEdicion = () => {
+  editandoId.value = null;
+  nuevo.value = { empleado: '', area: '', placa: '', tipo: 'Auto', color: '', horaEntrada: '', horaSalida: '' };
+};
+
+
 
 // Cargar datos al iniciar
 const obtenerRegistros = async () => {
@@ -297,6 +265,9 @@ onMounted(obtenerRegistros);
 
 }
 
+
+
+
 .header-main {
   display: flex;
   justify-content: space-between;
@@ -315,6 +286,8 @@ onMounted(obtenerRegistros);
   gap: 2rem;
   width: 100%;
 }
+
+
 
 .card {
   background: white;
@@ -407,30 +380,4 @@ input, select {
   border-radius: 5px;
   cursor: pointer;
 }
-
-.table-tools {
-  display: flex;
-  gap: 1rem;
-  margin-bottom: 1rem;
-}
-.search-box { flex: 2; }
-.filter-box { flex: 1; }
-.search-box input, .filter-box select {
-  width: 100%;
-  padding: 0.5rem;
-  border-radius: 5px;
-  border: 1px solid #ddd;
-}
-.btn-edit {
-  background: #f1c40f;
-  color: white;
-  border: none;
-  padding: 0.4rem 0.6rem;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-right: 5px;
-}
-
-
-
 </style>
